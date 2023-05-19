@@ -114,6 +114,22 @@ const App = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
 
+    fetch(
+      "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const imageUrl = `https://www.bing.com${data.images[0].url}`;
+
+        // Sets the background image
+        document.getElementById(
+          "your-element-id"
+        ).style.backgroundImage = `url(${imageUrl})`;
+      })
+      .catch((error) => {
+        console.error("Error fetching Bing image:", error);
+      });
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
@@ -168,15 +184,21 @@ const App = () => {
   return (
     <div className="container">
       <header className="header">
+        <header className="header">
+          <h1>Data Transparency Tool</h1>
+        </header>
         <div className="content">
           <section className="description">
-            <Typography variant="body1">
+            <p className="description-text">
               Welcome to the Data Transparency Tool! This tool allows you to see
               what kind of information is being collected or visible about you
               when you browse the internet. It provides insights into your
               browser data, location, weather, and more. Stay informed and take
               control of your online privacy!
-            </Typography>
+            </p>
+            <Button onClick={getLocation} className="description-button">
+              Get Location
+            </Button>
           </section>
         </div>
       </header>
@@ -290,7 +312,6 @@ const App = () => {
                   </Marker>
                 </MapContainer>
               )}
-              <Button onClick={getLocation}>Get Location</Button>
             </Card>
           </div>
         </div>
