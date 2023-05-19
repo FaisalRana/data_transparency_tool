@@ -13,7 +13,7 @@ import {
   Button,
 } from "@mui/material";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import "leaflet/dist/leaflet.css"; // Import Leaflet CSS
 import "./App.css"; // Import custom CSS file for styling
 
 const App = () => {
@@ -269,50 +269,60 @@ const App = () => {
             </div>
           </div>
           <div className="right-panel">
-            <Card className="card">
-              <CardContent>
-                <Typography variant="h6" gutterBottom className="title">
-                  Weather
-                </Typography>
-                <img
-                  src={`https://openweathermap.org/img/w/${weatherIcon}.png`}
-                  alt="Weather Icon"
-                  className="weather-icon"
-                />
-                <Typography variant="subtitle1" className="location">
-                  Location: {address}
-                </Typography>
-                <Typography variant="subtitle1" className="timezone">
-                  Timezone: {timeZone}
-                </Typography>
-                <Typography variant="subtitle1" className="temperature">
-                  Temperature: {temp} °F
-                </Typography>
-                <Typography variant="subtitle1" className="feels-like">
-                  Feels Like: {feelsLike} °F
-                </Typography>
-                <Typography variant="subtitle1" className="description">
-                  Weather: {weatherDescription}
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card className="map-card">
-              {userLocation && (
+            {userLocation && (
+              <Card className="card">
+                <CardContent>
+                  <Typography variant="h6" gutterBottom className="title">
+                    Weather
+                  </Typography>
+                  <img
+                    src={`https://openweathermap.org/img/w/${weatherIcon}.png`}
+                    alt="Weather Icon"
+                    className="weather-icon"
+                  />
+                  <Typography variant="subtitle1" className="timezone">
+                    Timezone: {timeZone}
+                  </Typography>
+                  <Typography variant="subtitle1" className="temperature">
+                    Temperature: {temp} °F
+                  </Typography>
+                  <Typography variant="subtitle1" className="feels-like">
+                    Feels Like: {feelsLike} °F
+                  </Typography>
+                  <Typography variant="subtitle1" className="description">
+                    Weather: {weatherDescription}
+                  </Typography>
+                </CardContent>
+              </Card>
+            )}
+            {userLocation && (
+              <Card className="map-card">
                 <MapContainer
                   center={[userLocation.lat, userLocation.lng]}
                   zoom={13}
                   className="map-container"
                 >
                   <TileLayer
-                    url="https://{s}.tile.openstreet
-  map.org/{z}/{x}/{y}.png"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // Updated URL
                   />
                   <Marker position={[userLocation.lat, userLocation.lng]}>
                     <Popup>You are here</Popup>
                   </Marker>
                 </MapContainer>
-              )}
-            </Card>
+              </Card>
+            )}
+            <br></br>
+            {address && (
+              <Card>
+                <Typography
+                  style={{ textAlign: "left" }}
+                  variant="subtitle2"
+                  className="location"
+                >
+                  <b> Location: </b> {address}
+                </Typography>
+              </Card>
+            )}
           </div>
         </div>
       </div>
