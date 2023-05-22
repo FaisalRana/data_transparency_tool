@@ -123,7 +123,7 @@ const App = () => {
 
         // Sets the background image
         document.getElementById(
-          "your-element-id"
+          "root"
         ).style.backgroundImage = `url(${imageUrl})`;
       })
       .catch((error) => {
